@@ -107,11 +107,18 @@ public class API {
 
     //외부 api 쏜거 저장하기
     @Transactional
-    public Location saveStarLocationWeather(LocationStarMoonDustDto result ) {
+    public Location saveStarLocationWeather(int count, LocationStarMoonDustDto result) {
         List<String> location = processAddress(result.getAddress());
-        Location newLocation = new Location(location.get(0));
+        Location newLocation = null;
+        Location saveLocation = null;
 
-        Location saveLocation = locationRepository.save(newLocation);
+        if(count == 0){
+            newLocation = new Location(location.get(0));
+            saveLocation = locationRepository.save(newLocation);
+        }
+        else{
+            saveLocation = locationRepository.findByCityName(location.get(0));
+        }
 
         Star newStar =
                 new Star(

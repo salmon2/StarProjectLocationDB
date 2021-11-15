@@ -15,7 +15,7 @@ public class Star {
     @Id @GeneratedValue
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     @JsonIgnore
     private Location location;

@@ -44,7 +44,7 @@ public class WeatherApi {
         urlBuilder.append("&" + URLEncoder.encode("nx","UTF-8") + "=" + URLEncoder.encode(weatherCity.getX().toString(), "UTF-8")); /*예보지점의 X 좌표값*/
         urlBuilder.append("&" + URLEncoder.encode("ny","UTF-8") + "=" + URLEncoder.encode(weatherCity.getY().toString(), "UTF-8")); /*예보지점의 Y 좌표값*/
         //System.out.println("urlBuilder.toString() = " + urlBuilder.toString());
-
+        log.info("urlBuilder.toString() = {}", urlBuilder.toString());
         DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
         Document doc = dBuilder.parse(urlBuilder.toString());
