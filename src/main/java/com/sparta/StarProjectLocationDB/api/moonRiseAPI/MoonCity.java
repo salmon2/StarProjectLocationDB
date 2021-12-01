@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum MoonCity {
-
     강릉("강릉"),
     강화도("강화도"),
     거제("거제"),
@@ -107,35 +106,40 @@ public enum MoonCity {
 
     private String korName;
 
-    public static MoonCity getMoonCityByString(String text, String location){
+    public static MoonCity  getMoonCityByString(String text, String location){
+
         for (MoonCity value : MoonCity.values()) {
             if(value.getKorName().equals(text)){
                 return value;
             }
         }
-        if(location.equals("경기")){
+
+        if(location.contains("경기")){
             return MoonCity.서울;
         }
-        else if(location.equals("강원")){
+        else if(location.contains("강원")){
             return MoonCity.강릉;
         }
-        else if(location.equals("충북")){
+        else if(location.contains("충청북")){
             return MoonCity.청주;
         }
-        else if(location.equals("충남")){
+        else if(location.contains("충청남")){
             return MoonCity.천안;
         }
-        else if(location.equals("전북")){
+        else if(location.contains("전라북")){
             return MoonCity.전주;
         }
-        else if(location.equals("전남")){
+        else if(location.contains("전라남")){
             return MoonCity.목포;
         }
-        else if(location.equals("경북")){
+        else if(location.contains("경상북")){
             return MoonCity.대구;
         }
-        else if(location.equals("경남")){
+        else if(location.contains("경상남")){
             return MoonCity.부산;
+        }
+        else if(location.contains("제주특별자치")){
+            return MoonCity.제주;
         }
 
         return null;

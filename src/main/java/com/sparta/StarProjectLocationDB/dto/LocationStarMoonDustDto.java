@@ -1,5 +1,6 @@
 package com.sparta.StarProjectLocationDB.dto;
 
+import com.sparta.StarProjectLocationDB.City;
 import lombok.*;
 
 import java.util.List;
@@ -14,6 +15,6 @@ public class LocationStarMoonDustDto {
     SunMoonDto moon;
     List<WeatherApiDto2> weather;
     DustApiDto dust;
-    String address;
+    City city;
     GeographicDto geographicDto;
 }

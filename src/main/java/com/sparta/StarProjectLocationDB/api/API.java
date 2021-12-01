@@ -1,5 +1,6 @@
 package com.sparta.StarProjectLocationDB.api;
 
+import com.sparta.StarProjectLocationDB.City;
 import com.sparta.StarProjectLocationDB.api.accuweatherAPI.AccuWeatherApi;
 import com.sparta.StarProjectLocationDB.api.accuweatherAPI.StarGazingCity;
 import com.sparta.StarProjectLocationDB.api.dustApi.DustApi;
@@ -40,28 +41,26 @@ public class API {
 
 
     //주소를 city로 찾기
-    public List<String> processAddress(String address){
-        List<String> result = new ArrayList<>();
-
-        for (StarGazingCity value : StarGazingCity.values()) {
+    public City processAddressReturnCity(String address){
+        for (City value : City.values()) {
             if(address.contains(value.getKorName())){
-                result.add(value.getKorName());
-                result.add(value.getState());
-                return result;
+                return value;
             }
         }
-        return result;
+        return null;
     }
+
+
 
     //외부 api 쏘기
     public LocationStarMoonDustDto findInfoByAddress(String address, int count) throws Exception {
-        List<String> location = processAddress(address);    //경상북도 구미시, 구미
+        City city = processAddressReturnCity(address);    //경상북도 구미시, 구미
                                                             //서울특별시 ~~, 서울
-
-        WeatherCity weatherCity = WeatherCity.getWeatherCityByString(location.get(0));
-        MoonCity moonCity = MoonCity.getMoonCityByString(location.get(0), location.get(1));
-        DustCity dustCity = DustCity.getDustCityByString(location.get(1));
-        StarGazingCity starGazingCity = StarGazingCity.getStarGazingCityByString(location.get(0));
+        log.info("city = {}, state ={}", city.getKorName(), city.getState());
+        WeatherCity weatherCity = WeatherCity.getWeatherCityByString(city.getKorName());
+        MoonCity moonCity = MoonCity.getMoonCityByString(city.getKorName(), city.getState());
+        DustCity dustCity = DustCity.getDustCityByString(city.getState());
+        StarGazingCity starGazingCity = StarGazingCity.getStarGazingCityByString(city.getKorName());
 
 
         log.info("weatherCity = {}",weatherCity);
@@ -97,7 +96,7 @@ public class API {
                 moon,
                 weather,
                 dust,
-                address,
+                city,
                 geographicDto
         );
 
@@ -108,17 +107,11 @@ public class API {
     //외부 api 쏜거 저장하기
     @Transactional
     public Location saveStarLocationWeather(int count, LocationStarMoonDustDto result) {
-        List<String> location = processAddress(result.getAddress());
         Location newLocation = null;
         Location saveLocation = null;
 
-        if(count == 0){
-            newLocation = new Location(location.get(0));
-            saveLocation = locationRepository.save(newLocation);
-        }
-        else{
-            saveLocation = locationRepository.findByCityName(location.get(0));
-        }
+        saveLocation = locationRepository.findByCityName(result.getCity().getKorName());
+
 
         Star newStar =
                 new Star(

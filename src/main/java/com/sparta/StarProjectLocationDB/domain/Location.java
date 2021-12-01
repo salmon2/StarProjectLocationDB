@@ -20,6 +20,9 @@ public class Location {
 
     private String cityName;
 
+    private String state;
+    private String img;
+
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Board> board = new ArrayList<>();
 
@@ -32,5 +35,10 @@ public class Location {
 
     public Location(String cityName) {
         this.cityName = cityName;
+    }
+
+    public Location(String cityName, String state) {
+        this.cityName = cityName;
+        this.state = state;
     }
 }

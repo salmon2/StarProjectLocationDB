@@ -19,12 +19,7 @@ import java.util.Map;
 public class AccuWeatherApi {
     private final String StarGazingId = "12";
     private final String[] apiKeyList = {
-            "WYPVfBdCy5hYrmNgjSj9ihfSJ45cDJQl",
-            "p6wV66GJIR4kIkpqe4DlHIXLg4f6GE5r",
-            "8HAczaRzd9THEjlcmTrzucgtfFNDl8LK",
-            "LsVoEqE65kPf3Sz91zBhJaMlO4scciuB",
-            "GAeuwGP4vCAKeVLY47RyEzoKeozEJG82",
-            "AqXAn7GgSIBTsCOFCHvL7asizcukERry"
+            "NRIIvFzVAGeZJiHdGRGHkky75jkOdJ6x"
     };
 
     public List<StarGazingDto> getStarGazing(StarGazingCity cityId, int count) throws Exception {

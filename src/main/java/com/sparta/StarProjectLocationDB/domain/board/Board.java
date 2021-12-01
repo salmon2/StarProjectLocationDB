@@ -37,6 +37,7 @@ public class Board extends Timestamped{
 
     private String title;
     private String address;
+    @Column( length = 100000 )
     private String content;
     @Column( length = 100000 )
     private String img;
@@ -54,7 +55,6 @@ public class Board extends Timestamped{
     @JoinColumn(name = "location_id")
     @JsonIgnore
     private Location location;
-
 
     @OneToMany(mappedBy = "board", fetch = LAZY, cascade = ALL)
     private Set<Like> like = new HashSet<>();
